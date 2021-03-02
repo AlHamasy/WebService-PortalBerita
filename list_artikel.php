@@ -1,9 +1,10 @@
 <?php 
+
 // panggil kelas koneksi.php
 include 'koneksi.php';
 
-// SQL untuk menampilkan data
-$sql = "SELECT * FROM tb_berita";
+// SQL untuk mengambil data
+$sql = "SELECT * FROM tb_artikel";
 
 // masukkan ke method query
 $query = $conn->query($sql);
@@ -21,17 +22,20 @@ while ($data = $query->fetch_assoc()) {
 // hitung banyak baris array
 if (count($result) > 0){
 	$status = true;
-	$data_berita = $result;
+	$message = "Data artikel ditemukan";
+	$data_artikel = $result;
 }
 else{
 	$status = false;
-	$data_berita = null;
+	$message = "Data artikel tidak ada";
+	$data_artikel = null;
 }
 
-
 //convert array ke json (wajib)
-$response_json = json_encode(['status' => $status, 
-							  'data_berita' => $data_berita]);
+$response_json = json_encode(['status' => $status,
+							   'message' => $message,	
+							   'data_artikel' => $data_artikel]);
+
 echo $response_json;
 
 ?>
